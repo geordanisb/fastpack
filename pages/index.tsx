@@ -39,7 +39,7 @@ const Index: React.FC = ()=>{
                     cursor++;
                 }
                 idx ++;
-                gtl = ltg(l);
+                gtl = ltg(l).reverse();
             }
             console.log(res);
             setLine(res.reduce((p,c)=>{
