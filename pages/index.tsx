@@ -17,19 +17,21 @@ const Index: React.FC = ()=>{
             },0);
         };
         if(items){
-            let ltg = [...items].sort((a,b)=>a.size > b.size && 1 || -1);//sorted asc
-            let gtl = [...ltg].reverse();//sorted desc;
+            let ltg = (list:Item[])=>[...list].sort((a,b)=>a.size > b.size && 1 || -1);//sorted asc
+            let gtl = ltg(items).reverse();//sorted desc;
             const res = [];
             let idx = 0;debugger;
-            for(let g of gtl){
+            while(gtl.length){
+                let g = gtl.shift()!;
                 res.push([g]);
                 let completed = false;
                 let cursor = 0;
-                while(!completed && (cursor < ltg.length)){
+                let l = ltg(gtl);
+                while(!completed && (cursor < l.length)){
                     let totalSize = sum(res[idx]);
-                    if((totalSize + ltg[cursor].size) <= 10){
-                        res[idx].push(ltg[cursor]);
-                        ltg.splice(cursor,1);
+                    if((totalSize + l[cursor].size) <= 10){
+                        res[idx].push(l[cursor]);
+                        l.splice(cursor,1);
                         if(sum(res[idx])===10)
                             completed = true;
                     }
@@ -37,6 +39,7 @@ const Index: React.FC = ()=>{
                     cursor++;
                 }
                 idx ++;
+                gtl = ltg(l);
             }
             console.log(res);
             setLine(res.reduce((p,c)=>{
