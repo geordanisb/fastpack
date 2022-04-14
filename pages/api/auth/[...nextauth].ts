@@ -97,13 +97,15 @@ export default NextAuth({
           }) => {
             const { host } = new URL(url)
             const transport = nodemailer.createTransport(server)
-            await transport.sendMail({
+            debugger;
+            const res = await transport.sendMail({
               to: msg.to,
               from:process.env.EMAILING_FROM,
               subject: `Sign in to ${host}`,
               text: text({ url, host }),
               html: html({ url, host, email }),
             })
+            console.log(res,'email response')
           },
           
       }),
@@ -181,7 +183,7 @@ export default NextAuth({
   //   }
   // },
   secret: process.env.SECRET,
-  session: {
-    strategy: 'jwt'
-  }
+  // session: {
+  //   strategy: 'jwt'
+  // }
 })
