@@ -11,7 +11,7 @@ const List: React.FC = ()=>{
     const {data: items} = useItems();
     useEffect(()=>{
         if(items){
-            debugger;
+            
         }
     },[items])
     const {mutate:removeItem} = useMutation(async (id:number)=>{
@@ -36,7 +36,7 @@ const List: React.FC = ()=>{
             return {snapshot}
         },
         onSettled(data,error,variables,context){
-            debugger;
+            
             type ctx = {snapshot:Item[]}
             if(error){
                 queryClient.setQueryData(['ITEMS'],(context as ctx)?.snapshot);
